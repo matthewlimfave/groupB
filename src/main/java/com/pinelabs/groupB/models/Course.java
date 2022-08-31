@@ -16,7 +16,7 @@ public class Class {
     @Id
     private int id;
     private String name;
-    private enum status {
+    private enum status{
         ACTIVE,
         INACTIVE
     };
