@@ -4,7 +4,6 @@ import com.pinelabs.groupB.models.Student;
 import com.pinelabs.groupB.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,20 +15,30 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public void addStudent(Student student) {
+    //Create student
+    public void addStudents(Student student) {
         student.setCreatedOn(LocalDateTime.now());
+        student.setModifiedOn(LocalDateTime.now());
         studentRepository.save(student);
     }
 
+    //Get list of all students
     public List<Student> getStudents(){
         return studentRepository.findAll();
     }
 
-    public Optional<Student> getStudents(@PathVariable int id){
+    //Get student by ID
+    public Optional<Student> getStudents(int id){
         return studentRepository.findById(id);
     }
 
-    public String deleteStudent(@PathVariable int id){
+    //Get list of students by status
+    public List<Student> getStudentsByStatus(String status){
+        return studentRepository.findByStatus(status);
+    }
+
+    //Delete student with ID
+    public String deleteStudent(int id){
         studentRepository.deleteById(id);
         return "Student deleted with ID:" + id;
     }

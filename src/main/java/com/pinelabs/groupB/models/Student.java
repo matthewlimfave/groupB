@@ -10,21 +10,15 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 
-@Document(collection = "School")
+@Document
 public class Student {
 
     @Id
     private int id;
     private String name;
-    private enum status {
-        ACTIVE,
-        INACTIVE
-    };
+    private String status;
     private byte age;
     private String address;
     private LocalDateTime createdOn;
     private LocalDateTime modifiedOn;
-
-
-
 }

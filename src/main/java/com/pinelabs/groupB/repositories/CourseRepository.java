@@ -1,7 +1,10 @@
 package com.pinelabs.groupB.repositories;
 
-import com.pinelabs.groupB.models.Class;
+import com.pinelabs.groupB.models.Course;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ClassRepository extends MongoRepository<Class, Integer> {
+import java.util.List;
+
+public interface CourseRepository extends MongoRepository<Course, Integer> {
+    List<Course> findByStatus(String status);
 }
