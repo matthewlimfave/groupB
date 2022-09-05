@@ -15,11 +15,15 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    SequenceGenerator sequenceGenerator;
+
     //Create student
-    public void addStudents(Student student) {
+    public Student addStudents(Student student) {
+        student.setId(sequenceGenerator.generateSequence(student.SEQUENCE_NAME));
         student.setCreatedOn(LocalDateTime.now());
         student.setModifiedOn(LocalDateTime.now());
-        studentRepository.save(student);
+        return studentRepository.save(student);
     }
 
     //Get list of all students

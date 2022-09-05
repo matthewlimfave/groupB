@@ -3,6 +3,8 @@ package com.pinelabs.groupB.controllers;
 import com.pinelabs.groupB.models.Student;
 import com.pinelabs.groupB.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,33 +22,32 @@ public class StudentController {
     }
 
     //Create student
-    @PostMapping("/addStudents")
-    public String addStudents(@RequestBody Student student) {
-        studentService.addStudents(student);
-        return "Added student with ID: " + student.getId();
+    @PostMapping()
+    public ResponseEntity<?> addStudents(@RequestBody Student student) {
+        return new ResponseEntity<>(studentService.addStudents(student), HttpStatus.CREATED);
     }
 
     //Get list of all students
-    @GetMapping("/getStudents")
-    public List<Student> getStudents(){
-        return studentService.getStudents();
+    @GetMapping()
+    public ResponseEntity<?> getStudents(){
+        return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK) ;
     }
 
     //Get student by ID
-    @GetMapping("/getStudents/{id}")
-    public Optional<Student> getStudents(@PathVariable int id){
-        return studentService.getStudents(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getStudents(@PathVariable int id){
+        return new ResponseEntity<>(studentService.getStudents(id), HttpStatus.OK);
     }
 
     //Get list if students by status
-    @GetMapping("/getStudents/status/{status}")
-    public List<Student> getStudentsByStatus(@PathVariable String status)   {
-        return studentService.getStudentsByStatus(status);
+    @GetMapping("/status/{status}")
+    public ResponseEntity<?> getStudentsByStatus(@PathVariable String status)   {
+        return new ResponseEntity<>(studentService.getStudentsByStatus(status), HttpStatus.OK);
     }
 
     //Delete student by ID
-    @DeleteMapping("/deleteStudents/{id}")
-    public String deleteStudent(@PathVariable int id){
-        return studentService.deleteStudent(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable int id){
+        return new ResponseEntity<>(studentService.deleteStudent(id), HttpStatus.ACCEPTED);
     }
 }

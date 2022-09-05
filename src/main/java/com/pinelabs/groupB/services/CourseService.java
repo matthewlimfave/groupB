@@ -15,11 +15,15 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
+    @Autowired
+    SequenceGenerator sequenceGenerator;
+
     //Create course
-    public void addCourses (Course course) {
+    public Course addCourses (Course course) {
+        course.setId(sequenceGenerator.generateSequence(course.SEQUENCE_NAME));
         course.setCreatedOn(LocalDateTime.now());
         course.setModifiedOn(LocalDateTime.now());
-        courseRepository.save(course);
+        return courseRepository.save(course);
     }
     
     //Get list of all courses
